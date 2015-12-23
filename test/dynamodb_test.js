@@ -207,6 +207,7 @@ describe('Cross Strategy Tests', function() {
 			var tenantUser = new UserSchema();
 			tenantUser.userHandle = testUser1UserHandle;
 			tenantUser.tenant = testTenant;
+			tenantUser.homeLocation = 'Edinburg, VA';
 			tenantUser.addTwitterStrategy(testUser1TwitterID, 'TWITTER_TOKEN', function(err, results){
 				if (err) throw err;
 				tenantUser.save(function(err, results){
@@ -313,6 +314,65 @@ describe('Cross Strategy Tests', function() {
 			});
 		});
 	});
+
+
+	describe('Update User with Tenant on optional fields', function () {
+		it('should update successfully', function (done) {
+			var testUser = new UserSchema();
+			testUser.getById(tenantUserId, function(err, results){
+				if (err) throw err;
+				testUser.id.should.not.equal('');
+				testUser.id.should.equal(tenantUserId);
+
+				testUser.homeLocation = 'Boulder, CO';
+				testUser.fullName = 'John Smith';
+				testUser.bio = 'It was the best of times...';
+				testUser.avatar = 'http://www.avatar.com/me';
+				testUser.save(function(err2, results2){
+					if (err2) throw err2;
+					var testUser2 = new UserSchema();
+					testUser2.getById(tenantUserId, function(err3, results3){
+						if (err3) throw err3;
+						testUser2.homeLocation.should.equal('Boulder, CO');
+						testUser2.fullName.should.equal('John Smith');
+						testUser2.bio.should.equal('It was the best of times...');
+						testUser2.avatar.should.equal('http://www.avatar.com/me');
+						done();
+					});
+				});
+			});
+		});
+	});
+
+
+	describe('Update User with Tenant by nulling optional fields', function () {
+		it('should update successfully', function (done) {
+			var testUser = new UserSchema();
+			testUser.getById(tenantUserId, function(err, results){
+				if (err) throw err;
+				testUser.id.should.not.equal('');
+				testUser.id.should.equal(tenantUserId);
+
+				testUser.homeLocation = '';
+				testUser.fullName = '';
+				testUser.bio = '';
+				testUser.avatar = '';
+				testUser.save(function(err2, results2){
+					if (err2) throw err2;
+					var testUser2 = new UserSchema();
+					testUser2.getById(tenantUserId, function(err3, results3){
+						if (err3) throw err3;
+						testUser2.homeLocation.should.equal('');
+						testUser2.fullName.should.equal('');
+						testUser2.bio.should.equal('');
+						testUser2.avatar.should.equal('');
+						done();
+					});
+				});
+			});
+		});
+	});
+
 
 
 	describe('Update User without Tenant', function () {

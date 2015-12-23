@@ -207,7 +207,7 @@ describe('Cross Strategy Tests', function() {
 			var tenantUser = new UserSchema();
 			tenantUser.userHandle = testUser1UserHandle;
 			tenantUser.tenant = testTenant;
-			tenantUser.homeLocation = 'Edinburg, VA';
+			tenantUser.location = 'Edinburg, VA';
 			tenantUser.addTwitterStrategy(testUser1TwitterID, 'TWITTER_TOKEN', function(err, results){
 				if (err) throw err;
 				tenantUser.save(function(err, results){
@@ -324,7 +324,7 @@ describe('Cross Strategy Tests', function() {
 				testUser.id.should.not.equal('');
 				testUser.id.should.equal(tenantUserId);
 
-				testUser.homeLocation = 'Boulder, CO';
+				testUser.location = 'Boulder, CO';
 				testUser.fullName = 'John Smith';
 				testUser.bio = 'It was the best of times...';
 				testUser.avatar = 'http://www.avatar.com/me';
@@ -333,7 +333,7 @@ describe('Cross Strategy Tests', function() {
 					var testUser2 = new UserSchema();
 					testUser2.getById(tenantUserId, function(err3, results3){
 						if (err3) throw err3;
-						testUser2.homeLocation.should.equal('Boulder, CO');
+						testUser2.location.should.equal('Boulder, CO');
 						testUser2.fullName.should.equal('John Smith');
 						testUser2.bio.should.equal('It was the best of times...');
 						testUser2.avatar.should.equal('http://www.avatar.com/me');
@@ -344,7 +344,6 @@ describe('Cross Strategy Tests', function() {
 		});
 	});
 
-
 	describe('Update User with Tenant by nulling optional fields', function () {
 		it('should update successfully', function (done) {
 			var testUser = new UserSchema();
@@ -353,7 +352,7 @@ describe('Cross Strategy Tests', function() {
 				testUser.id.should.not.equal('');
 				testUser.id.should.equal(tenantUserId);
 
-				testUser.homeLocation = '';
+				testUser.location = '';
 				testUser.fullName = '';
 				testUser.bio = '';
 				testUser.avatar = '';
@@ -362,7 +361,7 @@ describe('Cross Strategy Tests', function() {
 					var testUser2 = new UserSchema();
 					testUser2.getById(tenantUserId, function(err3, results3){
 						if (err3) throw err3;
-						testUser2.homeLocation.should.equal('');
+						testUser2.location.should.equal('');
 						testUser2.fullName.should.equal('');
 						testUser2.bio.should.equal('');
 						testUser2.avatar.should.equal('');
@@ -372,7 +371,6 @@ describe('Cross Strategy Tests', function() {
 			});
 		});
 	});
-
 
 
 	describe('Update User without Tenant', function () {

@@ -20,6 +20,9 @@ gulp.task('test', ['lint', 'mocha']);
 */
 /* Inspired by https://github.com/gulpjs/gulp/blob/master/docs/recipes/automate-release-workflow.md */
 
+/*https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#*/
+
+
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
 var conventionalChangelog = require('gulp-conventional-changelog');

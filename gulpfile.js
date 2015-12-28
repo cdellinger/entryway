@@ -31,6 +31,8 @@ var bump = require('gulp-bump');
 var gutil = require('gulp-util');
 var git = require('gulp-git');
 var fs = require('fs');
+var spawn = require('child_process').spawn;
+
 
 gulp.task('changelog', function () {
 	return gulp.src('CHANGELOG.md', {
@@ -86,6 +88,11 @@ gulp.task('create-new-tag', function (cb) {
   }
 });
 
+gulp.task('npm', function (done) {
+  spawn('npm', ['publish'], { stdio: 'inherit' }).on('close', done);
+});
+
+
 gulp.task('release', function (callback) {
   runSequence(
     'bump-version',
@@ -94,6 +101,7 @@ gulp.task('release', function (callback) {
     'push-changes',
     'create-new-tag',
     'github-release',
+    'npm',
     function (error) {
       if (error) {
         console.log(error.message);

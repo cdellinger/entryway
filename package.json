@@ -1,7 +1,7 @@
 {
   "name": "entryway",
   "version": "0.0.5",
-  "description": "Persistence layer for user authentication data",
+  "description": "Node.js persistence layer for user authentication data",
   "main": "./lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,9 +13,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "aws-sdk": "2.2.26",
     "bcryptjs": "^2.2.0",
-    "documentdb": "^1.4.0",
     "uuid": "^2.0.1"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "entryway",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Node.js persistence layer for user authentication data",
   "main": "./lib/index.js",
   "scripts": {

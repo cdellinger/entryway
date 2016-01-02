@@ -1,7 +1,7 @@
 var assert = require('assert');
 var should = require('should');
 
-var UserSchema = require('../lib/index');
+var UserSchema = require('../lib/index').UserSchema;
 
 describe('Core Tests', function() {
 	this.timeout(5000);

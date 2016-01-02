@@ -2,7 +2,7 @@ module.exports = function(provider){
 	var assert = require('assert');
 	var should = require('should');
 
-	var UserSchema = require('../../lib/index');
+	var UserSchema = require('../../lib/index').UserSchema;
 
 	// Test Data
 	var testTenant = '#TEST_TENANT#';

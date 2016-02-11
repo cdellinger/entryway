@@ -1,3 +1,9 @@
+<a name="0.0.12"></a>
+## [0.0.12](https://github.com/cdellinger/entryway/compare/0.0.11...v0.0.12) (2016-02-11)
+
+
+
+
 <a name="0.0.11"></a>
 ## [0.0.11](https://github.com/cdellinger/entryway/compare/0.0.10...v0.0.11) (2016-02-11)
 

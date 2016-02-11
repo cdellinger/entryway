@@ -234,7 +234,7 @@ module.exports = function(provider){
 				tenantUser.userHandle = user1.userHandle;
 				tenantUser.tenant = testTenant;
 				tenantUser.location = 'Edinburg, VA';
-				tenantUser.addTwitterStrategy(user1.twitterHandle, 'TWITTER_TOKEN', function(err, results){
+				tenantUser.addTwitterStrategy(user1.twitterHandle, 'TWITTER_TOKEN', 'TOKEN_SECRET', function(err, results){
 					if (err) throw err;
 					tenantUser.save(function(err, results){
 						if (err) throw err;
@@ -246,11 +246,25 @@ module.exports = function(provider){
 		});
 
 
+		describe('Twitter Login With Tenant', function () {
+			it('should retrieve user without error', function (done) {
+				var tenantUser = new UserSchema(provider);
+
+				tenantUser.loginViaTwitter(user1.twitterHandle, 'TWITTER_TOKEN', testTenant, function(err, results){
+					if (err) throw err;
+					tenantUser.userHandle.should.equal(user1.userHandle);
+					done();
+				});
+			});
+		});
+
+
+
 		describe('Save Without Tenant', function () {
 			it('should persist without error', function (done) {
 				var tenantlessUser = new UserSchema(provider);
 				tenantlessUser.userHandle = user2.userHandle;
-				tenantlessUser.addTwitterStrategy(user2.twitterHandle, 'TWITTER_TOKEN', function(err, results){
+				tenantlessUser.addTwitterStrategy(user2.twitterHandle, 'TWITTER_TOKEN', 'TOKEN_SECRET', function(err, results){
 					if (err) throw err;
 					tenantlessUser.save(function(err, results){
 						if (err) throw err;
@@ -439,7 +453,7 @@ module.exports = function(provider){
 				var tenantUser = new UserSchema(provider);
 				tenantUser.userHandle = user1.userHandle;
 				tenantUser.tenant = testTenant;
-				tenantUser.addTwitterStrategy(user1.twitterHandle + 'abcd', 'TWITTER_TOKEN', function(err, results){
+				tenantUser.addTwitterStrategy(user1.twitterHandle + 'abcd', 'TWITTER_TOKEN', 'TOKEN_SECRET', function(err, results){
 					if (err) throw err;
 					tenantUser.save(function(errSave, data){
 						errSave.message.should.equal('User exists already with this user handle');
@@ -455,7 +469,7 @@ module.exports = function(provider){
 				//var tenantlessUserId = user2.userHandle;
 
 				tenantlessUser.userHandle = user2.userHandle;
-				tenantlessUser.addTwitterStrategy(user2.twitterHandle + 'abcd', 'TWITTER_TOKEN', function(err, results){
+				tenantlessUser.addTwitterStrategy(user2.twitterHandle + 'abcd', 'TWITTER_TOKEN', 'TOKEN_SECRET', function(err, results){
 					if (err) throw err;
 					tenantlessUser.save(function(errSave, data){
 						errSave.message.should.equal('User exists already with this user handle');
@@ -471,7 +485,7 @@ module.exports = function(provider){
 				var usr = new UserSchema(provider);
 				usr.userHandle = '|||TESTUSER3|||';
 				usr.tenant = testTenant;
-				usr.addTwitterStrategy(user1.twitterHandle, 'TWITTER_TOKEN', function(err, results){
+				usr.addTwitterStrategy(user1.twitterHandle, 'TWITTER_TOKEN', 'TOKEN_SECRET', function(err, results){
 					err.message.should.equal('This strategy is already in use');
 					done();
 				});
@@ -482,7 +496,7 @@ module.exports = function(provider){
 			it('should fail to create user', function (done) {
 				var usr = new UserSchema(provider);
 				usr.userHandle = '|||TESTUSER3|||';
-				usr.addTwitterStrategy(user2.twitterHandle, 'TWITTER_TOKEN', function(err, results){
+				usr.addTwitterStrategy(user2.twitterHandle, 'TWITTER_TOKEN', 'TOKEN_SECRET', function(err, results){
 					err.message.should.equal('This strategy is already in use');
 					done();
 				});

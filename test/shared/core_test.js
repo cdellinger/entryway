@@ -42,6 +42,7 @@ module.exports = function(provider){
 					if (err) throw err;
 					passwordTenantUser.save(function(err, results){
 						if (err) throw err;
+						passwordTenantUser.id.should.not.equal('');
 						passwordTenantUserId = passwordTenantUser.id;
 						done();
 					});
